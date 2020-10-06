@@ -14,51 +14,49 @@ package modelo;
  */
 public class Pilha {
 
-    private int tamanho;
-    private int array[];
+    private int elementos[];
+    private int tamanho = 10;
     private int topo = -1;
 
     public Pilha() {
-        this(10);
+        elementos = new int[tamanho];
+        topo = -1;
     }
 
-    public Pilha(int tamanho) {
-        if (tamanho <= 0) {
-            throw new RuntimeException("Tamanho inválido!");
-        }
-        this.tamanho = tamanho;
-        array = new int[tamanho];
-    }
-
-    public void inserir(int elemento) {
-        if (estaCheia()) {
+    public void push(int e) {
+        if (isfull()) {
             throw new RuntimeException("Pilha cheia!");
         }
-        array[topo + 1] = elemento;
+        topo++;
+        elementos[topo] = e;
     }
 
-    public void retirar() {
-        if (estaVazia()) {
+    public int pop() {
+        if (isEmpty()) {
             throw new RuntimeException("A pilha está vazia");
         }
+        int e;
+        e = elementos[topo];
         topo--;
+        return e;
     }
 
-    public boolean estaVazia() {
+    public boolean isEmpty() {
         return topo == -1;
     }
 
-    public boolean estaCheia() {
-        return topo == (tamanho - 1);
+    public boolean isfull() {
+        return topo == (elementos.length - 1);
+    }
+    
+    public int consultar() {
+        return elementos[topo];
     }
 
     public int quantElementos() {
         return topo + 1;
     }
 
-    public int consultar() {
-        return array[topo];
-    }
 
     public void esvaziarPilha() {
         topo = -1;
